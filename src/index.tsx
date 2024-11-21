@@ -1,15 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme'; 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const cache = createCache({
+  key: 'css',
+  prepend: true,
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    <CacheProvider value={cache}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </CacheProvider>
   </React.StrictMode>
 );
 
